@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="milligram.min.css">
+<script src="jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="md5.js"></script>
+<script type="text/javascript" >
+	
+	function getCookie(c_name) {
+    if (document.cookie.length>0) {
+        c_start=document.cookie.indexOf(c_name + "=");
+        if (c_start!=-1) {
+            c_start=c_start + c_name.length+1;
+            c_end=document.cookie.indexOf(";",c_start);
+            if (c_end==-1) c_end=document.cookie.length;
+            return unescape(document.cookie.substring(c_start,c_end));
+        }
+    }
+    return "";
+}
+
+function checkCaptcha(){
+    // check captcha
+    var sInsCaptcha = calcMD5($('.captcha').val());
+    var sCookieCaptcha = getCookie('texta');
+
+    if (sInsCaptcha == sCookieCaptcha) {
+        document.getElementById('demo').innerHTML="Wow..!!! Correct Captcha";
+        document.getElementById('demo').style.color="green";
+    } else {
+         document.getElementById('demo').innerHTML="Sorry...Wrong Captcha.. :(";
+         document.getElementById('demo').style.color="red";
+    }
+}
+</script>
+
+	<title></title>
+</head>
+<body>
+<div class="container" style="margin-top: 3rem">
+	<div class="row">
+		<div class="column">
+			<h4 style="text-align: center;">Captcha generation using GD and MD5</h4>
+		</div>
+
+	</div>
+	<div class="row">
+	<div class="column">
+		<h3>security images:</h3>
+		<img src="captcha.php">
+		<br>
+		<p>Verification( type what you see)<span id="demo" style="margin-left: 8rem"></span></p>
+		<input class="captcha" type="text" name="captcha" value=""style="width: 40%">
+		<button onclick="checkCaptcha()">submit</button>
+
+		<br>
+		<p>
+            Current sample draw security image using GD library, each time when page loads it show different symbol-digit combinations. This combination processing through MD5 encription and storing in cookies. <strong>So you will able to check cookies after (where it necessary). </strong>In my sample I checking it using javascript.
+        </p>
+        
+
+	</div>
+	</div>
+
+
+
+
+</div>
+
+
+</body>
+</html>
